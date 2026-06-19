@@ -1,1 +1,171 @@
-# gabrieldagaluno-sys.github.io
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Pika</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#020617);
+    color:white;
+    overflow-x:hidden;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 10%;
+    position:fixed;
+    width:100%;
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:bold;
+    color:#00e5ff;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#00e5ff;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:5rem;
+    background:linear-gradient(90deg,#00e5ff,#8b5cf6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    margin-top:20px;
+    font-size:1.3rem;
+    max-width:700px;
+}
+
+.btn{
+    margin-top:30px;
+    padding:15px 35px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(90deg,#00e5ff,#8b5cf6);
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:scale(1.08);
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:80px 10%;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:30px;
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#00e5ff;
+}
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#94a3b8;
+}
+
+.glow{
+    position:fixed;
+    width:400px;
+    height:400px;
+    background:#00e5ff;
+    filter:blur(150px);
+    opacity:.15;
+    top:-100px;
+    left:-100px;
+    z-index:-1;
+}
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<header>
+    <div class="logo">PIKA</div>
+    <nav>
+        <a href="#">Início</a>
+        <a href="#">Projetos</a>
+        <a href="#">Contato</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Site Insano 🚀</h1>
+    <p>
+        Um visual moderno, rápido e responsivo para impressionar qualquer visitante.
+    </p>
+    <button class="btn">Começar Agora</button>
+</section>
+
+<section class="cards">
+    <div class="card">
+        <h2>⚡ Rápido</h2>
+        <p>Carregamento otimizado e experiência fluida.</p>
+    </div>
+
+    <div class="card">
+        <h2>🎨 Bonito</h2>
+        <p>Design moderno com efeitos neon e glassmorphism.</p>
+    </div>
+
+    <div class="card">
+        <h2>📱 Responsivo</h2>
+        <p>Funciona perfeitamente em celular, tablet e PC.</p>
+    </div>
+</section>
+
+<footer>
+    © 2026 - Site Pika
+</footer>
+
+</body>
+</html>
