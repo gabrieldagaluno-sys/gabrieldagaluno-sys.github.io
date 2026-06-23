@@ -48,7 +48,7 @@
 </main>
 
 <footer>
-  <p>Feito com ❤️ para estudos de Web Dev</p>
+  <p>Feito por Gabriel Garcia</p>
 </footer>
 
 <script>
@@ -60,9 +60,9 @@ async function carregarAtividades() {
 
   lista.innerHTML = data.map(a => `
     <a href="atividade.html?id=${a.id}" class="card">
-      <span class="numero">${a.numero}</span>
+      <span class="numero">${status}</span>
       <h3>${a.titulo}</h3>
-      <p>${a.descricao}</p>
+      <p>${a.data_entrega}</p>
     </a>
   `).join('');
 }
