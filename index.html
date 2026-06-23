@@ -20,7 +20,10 @@
             👨‍💻
         </div>
 
-        <h1>Portfólio Acadêmico</h1>
+<section>
+  <h1>Projetos</h1>
+  <div id="projetos"></div>
+</section>
 
         <p class="subtitulo">
             Desenvolvimento Web • Atividades do Semestre
@@ -48,35 +51,52 @@
         </p>
     </section>
 
-    <section>
-
-        <h2 class="titulo-secao">
-            Atividades
-        </h2>
-
-        <div class="lista">
-
-            <a href="atividades/modelo.html" class="card">
-                <span class="numero">01</span>
-                <h3>Algorítmos e Programação</h3>
-                <p>Atividades e estudo sobre alogítmo e programação.</p>
-            </a>
-
-            <a href="atividades/modelo.html" class="card">
-                <span class="numero">02</span>
-                <h3>Algorítmos e Programação</h3>
-                <p>Atividades e estudo sobre alogítmo e programação.</p>
-            </a>
-
-        </div>
-
-    </section>
+<section> <h2 class="titulo-secao"> Atividades </h2> <div class="lista" id="lista-atividades"> </div> </section>
 
 </main>
 
 <footer>
-    <p>Desenvolvido por SEU NOME • 2026</p>
+    <p>Desenvolvido por Gaybriel • 2026</p>
 </footer>
+<script>
+
+async function carregarAtividades() {
+
+    const usuario = "gabrieldagaluno-sys";
+    const repositorio = "gabrieldagaluno-sys.github.io";
+
+    const response = await fetch(
+        `https://api.github.com/repos/${usuario}/${repositorio}/contents/atividades`
+    );
+
+    const arquivos = await response.json();
+
+    const lista = document.getElementById("lista-atividades");
+
+    arquivos.forEach((arquivo, index) => {
+
+        if (!arquivo.name.endsWith(".html")) return;
+
+        const nome = arquivo.name
+            .replace(".html", "")
+            .replace("-", " ");
+
+        const card = `
+            <a href="atividades/${arquivo.name}" class="card">
+                <span class="numero">${index + 1}</span>
+                <h3>${nome}</h3>
+                <p>Atividade publicada automaticamente.</p>
+            </a>
+        `;
+
+        lista.innerHTML += card;
+    });
+
+}
+
+carregarAtividades();
+
+</script>
 
 </body>
 </html>
