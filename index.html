@@ -60,7 +60,7 @@ async function carregarAtividades() {
 
   lista.innerHTML = data.map(a => `
     <a href="atividade.html?id=${a.id}" class="card">
-      <span class="numero">${status}</span>
+      <span class="numero">${a.status}</span>
       <h3>${a.titulo}</h3>
       <p>${a.data_entrega}</p>
     </a>
