@@ -1,273 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Novo Post</title>
+<title>Admin</title>
+<link rel="stylesheet" href="styles.css">
 
-  <link rel="stylesheet" href="styles.css">
+<style>
+.admin-container{
+  max-width:700px;
+  margin:50px auto;
+  background:#111827;
+  padding:30px;
+  border-radius:20px;
+  color:white;
+}
 
-  <style>
-    .admin-container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 30px;
-      background: #111827;
-      border-radius: 20px;
-      color: white;
-    }
-
-    .admin-container h1 {
-      margin-bottom: 20px;
-    }
-
-    .campo {
-      margin-bottom: 20px;
-    }
-
-    .campo label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    .campo input,
-    .campo textarea {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-      background: #1f2937;
-      color: white;
-    }
-
-    .campo textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-
-    .botao {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
-      background: #2563eb;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .botao:hover {
-      background: #1d4ed8;
-    }
-
-    .status {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-  </style>
+input, textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border-radius:10px;
+  border:none;
+}
+button{
+  width:100%;
+  padding:15px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="admin-container">
+<div class="admin-container">
 
-    <h1>Adicionar Nova Atividade</h1>
+<h1>Nova Atividade</h1>
 
-    <div class="campo">
-      <label>GitHub Token</label>
-      <input type="password" id="token">
-    </div>
+<input id="numero" placeholder="Número">
+<input id="titulo" placeholder="Título">
+<textarea id="descricao" placeholder="Descrição"></textarea>
+<input id="classroom" placeholder="Link Classroom">
 
-    <div class="campo">
-      <label>Número da Atividade</label>
-      <input type="number" id="numero">
-    </div>
+<button onclick="adicionar()">Adicionar</button>
 
-    <div class="campo">
-      <label>Título</label>
-      <input type="text" id="titulo">
-    </div>
-
-    <div class="campo">
-      <label>Descrição</label>
-      <textarea id="descricao"></textarea>
-    </div>
-
-    <div class="campo">
-      <label>Link Classroom</label>
-      <input type="text" id="classroom">
-    </div>
-
-    <button class="botao" onclick="publicar()">
-      Publicar Atividade
-    </button>
-
-    <div class="status" id="status"></div>
-
-  </div>
+</div>
 
 <script>
-
-async function publicar() {
-
-    const usuario = "gabrieldagaluno-sys";
-    const repositorio = "gabrieldagaluno-sys.github.io";
-
-
-  const token = document.getElementById("token").value;
-
+async function adicionar() {
   const numero = document.getElementById("numero").value;
   const titulo = document.getElementById("titulo").value;
   const descricao = document.getElementById("descricao").value;
   const classroom = document.getElementById("classroom").value;
 
-  const status = document.getElementById("status");
+  const res = await fetch("atividades.json");
+  const data = await res.json();
 
-  status.innerHTML = "Publicando...";
+  const nova = {
+    id: Date.now(),
+    numero,
+    titulo,
+    descricao,
+    classroom
+  };
 
-  const nomeArquivo = `atividade-${numero}.html`;
+  data.push(nova);
 
-  const htmlAtividade = `
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${titulo}</title>
+  // ⚠️ isso NÃO salva no GitHub automaticamente
+  console.log(JSON.stringify(data, null, 2));
 
-    <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
-
-<header class="hero">
-
-    <div class="hero-content">
-        <h1>${titulo}</h1>
-
-        <p class="subtitulo">
-            Atividade ${numero}
-        </p>
-    </div>
-
-</header>
-
-<main>
-
-    <div class="conteudo">
-
-        <h2>Descrição</h2>
-
-        <p>
-            ${descricao}
-        </p>
-
-        <br>
-
-        <a href="${classroom}" class="voltar">
-            Link no Classroom
-        </a>
-
-        <br><br>
-
-        <a href="../index.html" class="voltar">
-            ← Voltar para o Portfólio
-        </a>
-
-    </div>
-
-</main>
-
-</body>
-</html>
-`;
-
-  const atividadeBase64 = btoa(unescape(encodeURIComponent(htmlAtividade)));
-
-  const atividadeURL =
-    `https://api.github.com/repos/${usuario}/${repositorio}/contents/atividades/${nomeArquivo}`;
-
-  // CRIAR ATIVIDADE
-
-  const criarAtividade = await fetch(atividadeURL, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: `Nova atividade ${numero}`,
-      content: atividadeBase64
-    })
-  });
-
-  if (!criarAtividade.ok) {
-    status.innerHTML = "Erro ao criar atividade.";
-    return;
-  }
-
-  // BUSCAR INDEX
-
-  const indexURL =
-    `https://api.github.com/repos/${usuario}/${repositorio}/contents/index.html`;
-
-  const indexResponse = await fetch(indexURL, {
-    headers: {
-      Authorization: `token ${token}`
-    }
-  });
-
-  const indexData = await indexResponse.json();
-
-  const sha = indexData.sha;
-
-  const indexAtual = decodeURIComponent(escape(atob(indexData.content)));
-
-  // NOVO CARD
-
-  const novoCard = `
-<a href="atividades/${nomeArquivo}" class="card">
-    <span class="numero">${numero}</span>
-    <h3>${titulo}</h3>
-    <p>${descricao}</p>
-</a>
-`;
-
-  // ADICIONAR CARD
-
-  const atualizado = indexAtual.replace(
-    '</div>',
-    `${novoCard}</div>`
-  );
-
-  const novoIndexBase64 =
-    btoa(unescape(encodeURIComponent(atualizado)));
-
-  // ATUALIZAR INDEX
-
-  const atualizarIndex = await fetch(indexURL, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: `Atualizando index com atividade ${numero}`,
-      content: novoIndexBase64,
-      sha: sha
-    })
-  });
-
-  if (!atualizarIndex.ok) {
-    status.innerHTML = "Erro ao atualizar index.";
-    return;
-  }
-
-  status.innerHTML = "Atividade publicada com sucesso!";
+  alert("Copie o JSON do console e cole no atividades.json");
 }
-
 </script>
 
 </body>

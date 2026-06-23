@@ -34,24 +34,15 @@
 
   <section class="sobre">
     <h2>Sobre o Projeto</h2>
-
     <p>
       Este portfólio reúne todas as atividades desenvolvidas durante o semestre.
-      Cada página apresenta exercícios e práticas de desenvolvimento web.
     </p>
   </section>
 
   <section>
-
     <h2 class="titulo-secao">Atividades</h2>
 
-    <div class="lista">
-
-      <!-- CARDS AQUI -->
-      <!-- NÃO APAGA ISSO (JS usa como ponto de inserção) -->
-
-    </div>
-
+    <div class="lista" id="lista"></div>
   </section>
 
 </main>
@@ -59,6 +50,25 @@
 <footer>
   <p>Feito com ❤️ para estudos de Web Dev</p>
 </footer>
+
+<script>
+async function carregarAtividades() {
+  const res = await fetch('atividades.json');
+  const data = await res.json();
+
+  const lista = document.getElementById('lista');
+
+  lista.innerHTML = data.map(a => `
+    <a href="atividade.html?id=${a.id}" class="card">
+      <span class="numero">${a.numero}</span>
+      <h3>${a.titulo}</h3>
+      <p>${a.descricao}</p>
+    </a>
+  `).join('');
+}
+
+carregarAtividades();
+</script>
 
 </body>
 </html>
