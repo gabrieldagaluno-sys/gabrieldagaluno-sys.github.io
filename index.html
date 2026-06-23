@@ -1,108 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio Acadêmico</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projetos</title>
 
-    <link rel="stylesheet" href="styles.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <header class="hero">
+  <div class="hero-content">
 
-    <div class="hero-content">
-        <div class="avatar">
-            👨‍💻
-        
-<a href="atividades/atividade-123.html" class="card">
-    <span class="numero">123</span>
-    <h3>teste</h3>
-    <p>teste</p>
-</a>
-</div>
+    <div class="avatar">🧑‍💻</div>
 
-<section>
-  <h1>Projetos</h1>
-  <div id="projetos"></div>
-</section>
+    <h1>Projetos</h1>
 
-        <p class="subtitulo">
-            Desenvolvimento Web • Atividades do Semestre
-        </p>
+    <p class="subtitulo">
+      Desenvolvimento Web • Atividades do Semestre
+    </p>
 
-        <div class="badges">
-            <span>📚 12 Atividades</span>
-            <span>💻 HTML & CSS</span>
-            <span>🎓 Desenvolvimento Web</span>
-        </div>
+    <div class="badges">
+      <span>📚 Atividades</span>
+      <span>💻 HTML & CSS</span>
+      <span>🚀 Web Dev</span>
     </div>
 
+  </div>
 </header>
 
 <main>
 
-    <section class="sobre">
-        <h2>Sobre o Projeto</h2>
+  <section class="sobre">
+    <h2>Sobre o Projeto</h2>
 
-        <p>
-            Este portfólio reúne todas as atividades desenvolvidas
-            durante o semestre. Cada página apresenta um exercício,
-            projeto ou prática realizada em aula, documentando a evolução
-            dos conhecimentos em desenvolvimento web.
-        </p>
-    </section>
+    <p>
+      Este portfólio reúne todas as atividades desenvolvidas durante o semestre.
+      Cada página apresenta exercícios e práticas de desenvolvimento web.
+    </p>
+  </section>
 
-<section> <h2 class="titulo-secao"> Atividades </h2> <div class="lista" id="lista-atividades"> </div> </section>
+  <section>
+
+    <h2 class="titulo-secao">Atividades</h2>
+
+    <div class="lista">
+
+      <!-- CARDS AQUI -->
+      <!-- NÃO APAGA ISSO (JS usa como ponto de inserção) -->
+
+    </div>
+
+  </section>
 
 </main>
 
 <footer>
-    <p>Desenvolvido por Gaybriel • 2026</p>
+  <p>Feito com ❤️ para estudos de Web Dev</p>
 </footer>
-<script>
-
-async function carregarAtividades() {
-
-    const usuario = "gabrieldagaluno-sys";
-    const repositorio = "gabrieldagaluno-sys.github.io";
-
-    const response = await fetch(
-        `https://api.github.com/repos/${usuario}/${repositorio}/contents/atividades`
-    );
-
-    const arquivos = await response.json();
-
-    const lista = document.getElementById("lista-atividades");
-
-    arquivos.forEach((arquivo, index) => {
-
-        if (!arquivo.name.endsWith(".html")) return;
-
-        const nome = arquivo.name
-            .replace(".html", "")
-            .replace("-", " ");
-
-        const card = `
-            <a href="atividades/${arquivo.name}" class="card">
-                <span class="numero">${index + 1}</span>
-                <h3>${nome}</h3>
-                <p>Atividade publicada automaticamente.</p>
-            </a>
-        `;
-
-        lista.innerHTML += card;
-    });
-
-}
-
-carregarAtividades();
-
-</script>
 
 </body>
 </html>
