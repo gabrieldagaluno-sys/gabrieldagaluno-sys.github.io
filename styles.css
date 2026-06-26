@@ -21,6 +21,7 @@ body{
     min-height:100vh;
 }
 
+
 /* HERO */
 .hero{
     text-align:center;
@@ -71,6 +72,7 @@ body{
     font-size:1.2rem;
 }
 
+
 /* BADGES */
 .badges{
     margin-top:30px;
@@ -82,22 +84,32 @@ body{
 }
 
 .badges span{
+
     background:rgba(255,255,255,.05);
+
     border:1px solid rgba(255,255,255,.08);
 
     padding:10px 18px;
+
     border-radius:999px;
 }
 
+
 /* MAIN */
 main{
+
     max-width:1200px;
+
     margin:auto;
+
     padding:40px 20px 80px;
 }
 
+
+
 /* SOBRE */
 .sobre{
+
     background:var(--surface);
 
     padding:35px;
@@ -109,30 +121,49 @@ main{
     margin-bottom:50px;
 }
 
+
 .sobre h2{
     margin-bottom:15px;
 }
 
+
 .sobre p{
+
     line-height:1.8;
+
     color:var(--muted);
+
 }
+
+
 
 /* TITULO */
 .titulo-secao{
+
     margin-bottom:25px;
+
 }
 
-/* GRID DOS CARDS (AQUI ESTAVA O PROBLEMA) */
+
+
+/* GRID */
 .lista{
+
     display:grid;
+
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
     gap:25px;
+
 }
+
+
 
 /* CARD */
 .card{
+
     text-decoration:none;
+
     color:inherit;
 
     background:var(--surface);
@@ -144,72 +175,140 @@ main{
     border:1px solid rgba(255,255,255,.08);
 
     transition:.3s;
+
 }
 
+
+
 .card:hover{
+
     transform:translateY(-8px);
 
     border-color:var(--primary);
 
     box-shadow:0 20px 50px rgba(56,189,248,.15);
+
 }
 
+
+
+/* TEXTO DE STATUS */
 .numero{
+
     display:inline-block;
 
-    color:var(--primary);
-
     font-size:.9rem;
+
     font-weight:700;
 
     margin-bottom:15px;
+
 }
+
+
+/* ATIVIDADE VERMELHO */
+.numero.atividade{
+
+    color:#ef4444;
+
+}
+
+
+/* CONCLUÍDA VERDE */
+.numero.concluida{
+
+    color:#22c55e;
+
+}
+
+
 
 .card h3{
+
     margin-bottom:10px;
+
 }
 
+
 .card p{
+
     color:var(--muted);
+
     line-height:1.6;
+
 }
+
+
 
 /* FOOTER */
 footer{
+
     text-align:center;
+
     padding:40px;
+
     color:var(--muted);
+
     border-top:1px solid rgba(255,255,255,.08);
+
 }
 
-/* CONTEÚDO INTERNO (páginas das atividades) */
+
+
+/* PÁGINAS INTERNAS */
 .conteudo{
+
     max-width:1000px;
+
     margin:60px auto;
+
     background:var(--surface);
+
     padding:40px;
+
     border-radius:24px;
+
     border:1px solid rgba(255,255,255,.08);
+
 }
+
+
 
 .conteudo h2{
+
     margin-bottom:15px;
+
 }
+
+
 
 .conteudo p,
 .conteudo li{
+
     color:var(--muted);
+
     line-height:1.8;
+
 }
+
+
 
 .conteudo ul{
+
     margin-left:20px;
+
 }
 
+
+
 .voltar{
+
     display:inline-block;
+
     margin-top:30px;
+
     text-decoration:none;
+
 
     background:linear-gradient(
         135deg,
@@ -217,13 +316,22 @@ footer{
         var(--secondary)
     );
 
+
     color:white;
 
+
     padding:12px 20px;
+
     border-radius:12px;
+
     font-weight:600;
+
 }
 
+
+
 .voltar:hover{
+
     opacity:.9;
+
 }
