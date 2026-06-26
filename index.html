@@ -58,13 +58,16 @@ async function carregarAtividades() {
 
   const lista = document.getElementById('lista');
 
-  lista.innerHTML = data.map(a => `
-    <a href="atividade.html?id=${a.id}" class="card">
-      <span class="numero">${a.status}</span>
-      <h3>${a.titulo}</h3>
-      <p>${a.data_entrega}</p>
-    </a>
-  `).join('');
+  lista.innerHTML = data.map(a => {
+    const statusClass = a.status === 'Concluída' ? 'concluida' : 'atividade';
+    return `
+      <a href="atividade.html?id=${a.id}" class="card">
+        <span class="numero ${statusClass}">${a.status}</span>
+        <h3>${a.titulo}</h3>
+        <p>${a.data_entrega}</p>
+      </a>
+    `;
+  }).join('');
 }
 
 carregarAtividades();
