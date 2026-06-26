@@ -96,7 +96,7 @@
   <div class="pdf-item">
     <div class="pdf-header">
       <span class="pdf-title">Questionário Diagnóstico</span>
-      <button onclick="togglePDF(this, 'https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Question%C3%A1rio%20Diagn%C3%B3stico%20-%20Algoritmos%20e%20Programa%C3%A7%C3%A3o.pdf')">Ver PDF</button>
+      <button onclick="togglePDF(event, 'https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Question%C3%A1rio%20Diagn%C3%B3stico%20-%20Algoritmos%20e%20Programa%C3%A7%C3%A3o.pdf')">Ver PDF</button>
     </div>
     <div class="pdf-container"></div>
   </div>
@@ -104,8 +104,14 @@
 </div>
 
 <script>
-function togglePDF(button, pdfUrl) {
-  const container = button.nextElementSibling;
+function togglePDF(event, pdfUrl) {
+  const button = event.target;
+  const container = button.parentElement.parentElement.querySelector('.pdf-container');
+  
+  if (!container) {
+    console.error('Container não encontrado');
+    return;
+  }
   
   if (container.classList.contains('show')) {
     container.classList.remove('show');
