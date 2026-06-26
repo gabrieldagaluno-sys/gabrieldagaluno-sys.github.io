@@ -51,6 +51,14 @@
   <p>Feito por Gabriel Garcia</p>
 </footer>
 
+<!-- MODAL PDF -->
+<div id="pdfModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closePDFModal()">&times;</span>
+    <iframe id="pdfIframe" class="pdf-iframe"></iframe>
+  </div>
+</div>
+
 <script>
 async function carregarAtividades() {
   const res = await fetch('atividades.json');
@@ -60,15 +68,40 @@ async function carregarAtividades() {
 
   lista.innerHTML = data.map(a => {
     const statusClass = a.status === 'Concluída' ? 'concluida' : 'atividade';
+    const botaoPDF = a.pdf ? `<button class="btn-pdf" onclick="openPDFModal('${a.pdf}')">📄 Ver PDF</button>` : '';
+    
     return `
       <a href="atividade.html?id=${a.id}" class="card">
         <span class="numero ${statusClass}">${a.status}</span>
         <h3>${a.titulo}</h3>
         <p>${a.data_entrega}</p>
+        ${botaoPDF}
       </a>
     `;
   }).join('');
 }
+
+function openPDFModal(pdfUrl) {
+  const modal = document.getElementById('pdfModal');
+  const iframe = document.getElementById('pdfIframe');
+  iframe.src = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePDFModal() {
+  const modal = document.getElementById('pdfModal');
+  modal.classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+// Fechar modal ao clicar fora dele
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById('pdfModal');
+  if (event.target === modal) {
+    closePDFModal();
+  }
+});
 
 carregarAtividades();
 </script>
