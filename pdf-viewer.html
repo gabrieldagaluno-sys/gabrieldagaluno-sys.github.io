@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visualizador de PDF</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .pdf-item {
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .pdf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .pdf-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    button {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    button.hide {
+      background: #64748b;
+    }
+
+    .pdf-container {
+      display: none;
+      margin-top: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .pdf-container.show {
+      display: block;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 style="margin-bottom: 30px;">📄 PDFs das Atividades</h1>
+
+  <!-- EXEMPLO: Copie e cole este bloco para adicionar mais PDFs -->
+  <div class="pdf-item">
+    <div class="pdf-header">
+      <span class="pdf-title">Nome da Atividade</span>
+      <button onclick="togglePDF(this)">Ver PDF</button>
+    </div>
+    <div class="pdf-container">
+      <iframe src="seu-arquivo.pdf"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function togglePDF(button) {
+  const container = button.nextElementSibling;
+  
+  if (container.classList.contains('show')) {
+    container.classList.remove('show');
+    button.textContent = 'Ver PDF';
+    button.classList.remove('hide');
+  } else {
+    container.classList.add('show');
+    button.textContent = 'Ocultar PDF';
+    button.classList.add('hide');
+  }
+}
+</script>
+
+</body>
+</html>
