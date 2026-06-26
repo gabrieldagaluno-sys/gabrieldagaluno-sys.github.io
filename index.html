@@ -68,20 +68,23 @@ async function carregarAtividades() {
 
   lista.innerHTML = data.map(a => {
     const statusClass = a.status === 'Concluída' ? 'concluida' : 'atividade';
-    const botaoPDF = a.pdf ? `<button class="btn-pdf" onclick="openPDFModal('${a.pdf}')">📄 Ver PDF</button>` : '';
+    const botaoPDF = a.pdf ? `<button class="btn-pdf" onclick="openPDFModal(event, '${a.pdf}')">📄 Ver PDF</button>` : '';
     
     return `
-      <a href="atividade.html?id=${a.id}" class="card">
-        <span class="numero ${statusClass}">${a.status}</span>
-        <h3>${a.titulo}</h3>
-        <p>${a.data_entrega}</p>
+      <div class="card">
+        <a href="atividade.html?id=${a.id}" class="card-link">
+          <span class="numero ${statusClass}">${a.status}</span>
+          <h3>${a.titulo}</h3>
+          <p>${a.data_entrega}</p>
+        </a>
         ${botaoPDF}
-      </a>
+      </div>
     `;
   }).join('');
 }
 
-function openPDFModal(pdfUrl) {
+function openPDFModal(event, pdfUrl) {
+  event.stopPropagation();
   const modal = document.getElementById('pdfModal');
   const iframe = document.getElementById('pdfIframe');
   iframe.src = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
