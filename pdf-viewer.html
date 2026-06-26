@@ -1,176 +1,325 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Visualizador de PDF</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0f172a;
-      color: #f8fafc;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
+<title>Visualizador de PDF</title>
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
+<style>
 
-    h1 {
-      margin-bottom: 30px;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    .pdf-item {
-      background: #1e293b;
-      border: 1px solid rgba(255, 255, 255, .08);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+body{
+    font-family:Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    padding:40px;
+}
 
-    .pdf-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
 
-    .pdf-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
+.container{
+    max-width:900px;
+    margin:auto;
+}
 
-    button {
-      background: linear-gradient(135deg, #38bdf8, #818cf8);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
 
-    button:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
+h1{
+    margin-bottom:30px;
+}
 
-    button.hide {
-      background: #64748b;
-    }
 
-    .pdf-container {
-      display: none;
-      margin-top: 15px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+.pdf-item{
 
-    .pdf-container.show {
-      display: block;
-    }
+    background:#1e293b;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
 
-    .pdf-viewer {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 8px;
-    }
+}
 
-    .loading {
-      text-align: center;
-      padding: 20px;
-      color: #94a3b8;
-    }
-  </style>
+
+.pdf-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+.pdf-title{
+
+    font-size:20px;
+    font-weight:bold;
+
+}
+
+
+
+button{
+
+    background:linear-gradient(135deg,#38bdf8,#818cf8);
+    border:none;
+    color:white;
+
+    padding:10px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+button:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+
+.pdf-container{
+
+    display:none;
+
+    margin-top:20px;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:10px;
+
+}
+
+
+.pdf-container.show{
+
+    display:block;
+
+}
+
+
+canvas{
+
+    width:100%;
+
+}
+
+
+.loading{
+
+    color:#64748b;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+
+</style>
+
+
 </head>
+
 
 <body>
 
-<div class="container">
-  <h1>📄 PDFs das Atividades</h1>
 
-  <!-- EXEMPLO: Copie e cole este bloco para adicionar mais PDFs -->
-  <div class="pdf-item">
-    <div class="pdf-header">
-      <span class="pdf-title">Questionário Diagnóstico</span>
-      <button onclick="togglePDF(this, 'projetos/Questionário%20Diagnóstico%20-%20Algoritmos%20e%20Programação.pdf')">Ver PDF</button>
-    </div>
-    <div class="pdf-container">
-      <div class="loading">Carregando PDF...</div>
-    </div>
-  </div>
+<div class="container">
+
+
+<h1>📄 PDFs das Atividades</h1>
+
+
+
+<div class="pdf-item">
+
+
+<div class="pdf-header">
+
+
+<span class="pdf-title">
+Questionário Diagnóstico
+</span>
+
+
+<button onclick="togglePDF(this)">
+Ver PDF
+</button>
+
 
 </div>
 
+
+<div class="pdf-container">
+
+
+<div class="loading">
+Carregando...
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<!-- PDF.JS PRIMEIRO -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+
 <script>
-function togglePDF(button, pdfPath) {
-  const container = button.nextElementSibling;
-  
-  if (container.classList.contains('show')) {
-    container.classList.remove('show');
-    button.textContent = 'Ver PDF';
-    button.classList.remove('hide');
-  } else {
-    container.classList.add('show');
-    button.textContent = 'Ocultar PDF';
-    button.classList.add('hide');
-    
-    // Carregar PDF com PDF.js (visualizador nativo)
-    loadPDF(container, pdfPath);
-  }
+
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+
+
+function togglePDF(button){
+
+
+let container = button.parentElement.nextElementSibling;
+
+
+
+if(container.classList.contains("show")){
+
+
+container.classList.remove("show");
+
+button.innerHTML="Ver PDF";
+
+
+return;
+
 }
 
-// Carregar biblioteca PDF.js
-const pdfjsLib = window['pdfjs-dist/build/pdf'];
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-async function loadPDF(container, pdfPath) {
-  try {
-    // Se já foi carregado, não carrega novamente
-    if (container.querySelector('.pdf-viewer')) {
-      return;
-    }
 
-    // Criar canvas para exibir o PDF
-    const canvas = document.createElement('canvas');
-    canvas.className = 'pdf-viewer';
-    container.innerHTML = '';
-    container.appendChild(canvas);
+container.classList.add("show");
 
-    // Carregar o PDF
-    const pdf = await pdfjsLib.getDocument(pdfPath).promise;
-    const page = await pdf.getPage(1);
+button.innerHTML="Ocultar PDF";
 
-    // Renderizar primeira página
-    const viewport = page.getViewport({ scale: 1.5 });
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
 
-    const context = canvas.getContext('2d');
-    await page.render({
-      canvasContext: context,
-      viewport: viewport
-    }).promise;
 
-  } catch (error) {
-    container.innerHTML = '<div class="loading" style="color: #ef4444;">Erro ao carregar PDF. Tente novamente.</div>';
-    console.error('Erro:', error);
-  }
+carregarPDF(container,
+"projetos/Questionário%20Diagnóstico%20-%20Algoritmos%20e%20Programação.pdf"
+);
+
+
+
 }
+
+
+
+
+
+async function carregarPDF(container, caminho){
+
+
+
+if(container.querySelector("canvas")) return;
+
+
+
+try{
+
+
+container.innerHTML="";
+
+
+
+const canvas=document.createElement("canvas");
+
+
+container.appendChild(canvas);
+
+
+
+const pdf =
+await pdfjsLib.getDocument(caminho).promise;
+
+
+
+const pagina =
+await pdf.getPage(1);
+
+
+
+const escala=1.5;
+
+
+
+const viewport =
+pagina.getViewport({scale:escala});
+
+
+
+canvas.width=viewport.width;
+
+canvas.height=viewport.height;
+
+
+
+const contexto =
+canvas.getContext("2d");
+
+
+
+await pagina.render({
+
+canvasContext:contexto,
+
+viewport:viewport
+
+}).promise;
+
+
+
+}
+
+catch(e){
+
+
+container.innerHTML=
+
+"<p style='color:red'>Erro ao carregar PDF</p>";
+
+
+console.log(e);
+
+
+}
+
+
+
+}
+
+
+
 </script>
 
-<!-- Biblioteca PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 </body>
 </html>
