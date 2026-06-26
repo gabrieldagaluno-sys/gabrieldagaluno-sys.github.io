@@ -24,6 +24,10 @@
       margin: auto;
     }
 
+    h1 {
+      margin-bottom: 30px;
+    }
+
     .pdf-item {
       background: #1e293b;
       border: 1px solid rgba(255, 255, 255, .08);
@@ -75,10 +79,17 @@
       display: block;
     }
 
-    iframe {
+    .pdf-viewer {
       width: 100%;
       height: 600px;
       border: none;
+      border-radius: 8px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #94a3b8;
     }
   </style>
 </head>
@@ -86,23 +97,23 @@
 <body>
 
 <div class="container">
-  <h1 style="margin-bottom: 30px;">📄 PDFs das Atividades</h1>
+  <h1>📄 PDFs das Atividades</h1>
 
   <!-- EXEMPLO: Copie e cole este bloco para adicionar mais PDFs -->
   <div class="pdf-item">
     <div class="pdf-header">
-      <span class="pdf-title">Nome da Atividade</span>
-      <button onclick="togglePDF(this)">Ver PDF</button>
+      <span class="pdf-title">Questionário Diagnóstico</span>
+      <button onclick="togglePDF(this, 'projetos/Questionário%20Diagnóstico%20-%20Algoritmos%20e%20Programação.pdf')">Ver PDF</button>
     </div>
     <div class="pdf-container">
-      <iframe src="https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Question%C3%A1rio%20Diagn%C3%B3stico%20-%20Algoritmos%20e%20Programa%C3%A7%C3%A3o.pdf"></iframe>
+      <div class="loading">Carregando PDF...</div>
     </div>
   </div>
 
 </div>
 
 <script>
-function togglePDF(button) {
+function togglePDF(button, pdfPath) {
   const container = button.nextElementSibling;
   
   if (container.classList.contains('show')) {
@@ -113,9 +124,53 @@ function togglePDF(button) {
     container.classList.add('show');
     button.textContent = 'Ocultar PDF';
     button.classList.add('hide');
+    
+    // Carregar PDF com PDF.js (visualizador nativo)
+    loadPDF(container, pdfPath);
+  }
+}
+
+// Carregar biblioteca PDF.js
+const pdfjsLib = window['pdfjs-dist/build/pdf'];
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+async function loadPDF(container, pdfPath) {
+  try {
+    // Se já foi carregado, não carrega novamente
+    if (container.querySelector('.pdf-viewer')) {
+      return;
+    }
+
+    // Criar canvas para exibir o PDF
+    const canvas = document.createElement('canvas');
+    canvas.className = 'pdf-viewer';
+    container.innerHTML = '';
+    container.appendChild(canvas);
+
+    // Carregar o PDF
+    const pdf = await pdfjsLib.getDocument(pdfPath).promise;
+    const page = await pdf.getPage(1);
+
+    // Renderizar primeira página
+    const viewport = page.getViewport({ scale: 1.5 });
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    const context = canvas.getContext('2d');
+    await page.render({
+      canvasContext: context,
+      viewport: viewport
+    }).promise;
+
+  } catch (error) {
+    container.innerHTML = '<div class="loading" style="color: #ef4444;">Erro ao carregar PDF. Tente novamente.</div>';
+    console.error('Erro:', error);
   }
 }
 </script>
+
+<!-- Biblioteca PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 </body>
 </html>
