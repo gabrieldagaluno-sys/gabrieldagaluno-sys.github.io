@@ -3,65 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Atividade</title>
 
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+
+  <!-- Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Segurança -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+  <!-- Highlight -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
 </head>
+
 <body>
 
+
 <header class="hero">
+
   <div class="hero-content">
+
     <h1 id="titulo"></h1>
+
     <p class="subtitulo" id="subtitulo"></p>
+
   </div>
+
 </header>
+
+
 
 <main>
 
-  <div class="conteudo">
+<div class="conteudo">
 
-    <h2>Descrição</h2>
-    <p id="descricao"></p>
 
-    <br>
+<h2>Descrição</h2>
 
-    <a id="classroom" class="voltar" target="_blank">
-      Link no Classroom
-    </a>
 
-    <br><br>
+<p>
+Qualquer dúvida, entre em contato 
+<a href="mailto:gabrieldag.aluno@unipampa.edu.br" style="color:white;">
+gabrieldag.aluno@unipampa.edu.br
+</a>
+</p>
 
-    <a href="index.html" class="voltar">
-      ← Voltar
-    </a>
 
-  </div>
+<!-- Agora aceita Markdown -->
+<div id="descricao" class="markdown"></div>
+
+
+
+<br><br>
+
+
+<a href="index.html" class="voltar">
+← Voltar
+</a>
+
+
+</div>
 
 </main>
 
+
+
+
+
 <script>
-async function carregar() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
 
-  const res = await fetch('atividades.json');
-  const data = await res.json();
 
-  const atividade = data.find(a => a.id == id);
+async function carregar(){
 
-  if (!atividade) {
-    document.body.innerHTML = "<h1>Atividade não encontrada</h1>";
-    return;
-  }
 
-  document.getElementById("titulo").innerText = atividade.titulo;
-  document.getElementById("subtitulo").innerText = "Atividade " + atividade.numero;
-  document.getElementById("descricao").innerText = atividade.descricao;
-  document.getElementById("classroom").href = atividade.classroom;
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get('id');
+
+
+
+const res = await fetch('atividades.json');
+
+const data = await res.json();
+
+
+
+const atividade = data.find(a => a.id == id);
+
+
+
+if(!atividade){
+
+document.body.innerHTML =
+"<h1>Atividade não encontrada</h1>";
+
+return;
+
 }
 
+
+
+document.getElementById("titulo").innerText =
+atividade.titulo;
+
+
+
+document.getElementById("subtitulo").innerText =
+"Atividade " + atividade.id;
+
+
+
+
+
+// CONVERTE MARKDOWN PARA HTML
+
+const markdownHTML = marked.parse(
+atividade.descricao
+);
+
+
+
+// LIMPA HTML PERIGOSO
+
+document.getElementById("descricao").innerHTML =
+DOMPurify.sanitize(markdownHTML);
+
+
+
+// ativa destaque de código
+
+document.querySelectorAll("pre code")
+.forEach((block)=>{
+
+hljs.highlightElement(block);
+
+});
+
+
+}
+
+
+
 carregar();
+
+
+
 </script>
+
+
 
 </body>
 </html>
