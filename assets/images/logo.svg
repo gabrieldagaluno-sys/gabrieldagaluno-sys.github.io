@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo">
+  <rect rx="10" width="64" height="64" fill="#4f46e5"/>
+  <g transform="translate(12,12)" fill="#ffffff">
+    <path d="M0 20 L0 0 L14 10 Z" opacity="0.95"/>
+  </g>
+</svg>

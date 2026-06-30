@@ -1,116 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>Projetos</title>
-
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gabriel Dagaluno — Desenvolvedor Front-end</title>
+  <meta name="description" content="Crio interfaces limpas e com foco em experiência. HTML, CSS e JavaScript modernos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Ir para o conteúdo</a>
 
-<header class="hero">
-  <div class="hero-content">
-
-    <div class="avatar">🧑‍💻</div>
-
-    <h1>Projetos</h1>
-
-    <p class="subtitulo">
-      Desenvolvimento Web • Atividades do Semestre
-    </p>
-
-    <div class="badges">
-      <span>📚 Atividades</span>
-      <span>💻 HTML & CSS</span>
-      <span>🚀 Web Dev</span>
+  <header class="site-header container" role="banner">
+    <div class="brand" aria-label="Gabriel Dagaluno">
+      <a href="/" class="brand-link">
+        <img src="/assets/images/logo.svg" alt="Logo Gabriel Dagaluno" width="44" height="44">
+        <span class="brand-title">GabrielDagaluno</span>
+      </a>
     </div>
 
-  </div>
-</header>
+    <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" id="navToggle">
+      <span class="sr-only">Abrir menu</span>
+      ☰
+    </button>
 
-<main>
-
-  <section class="sobre">
-    <h2>Sobre o Projeto</h2>
-    <p>
-      Este portfólio reúne todas as atividades desenvolvidas durante o semestre.
-    </p>
-  </section>
-
-  <section>
-    <h2 class="titulo-secao">Atividades</h2>
-
-    <div class="lista" id="lista"></div>
-  </section>
-
-</main>
-
-<footer>
-  <p>Feito por Gabriel Garcia</p>
-</footer>
-
-<!-- MODAL PDF -->
-<div id="pdfModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closePDFModal()">&times;</span>
-    <iframe id="pdfIframe" class="pdf-iframe"></iframe>
-  </div>
-</div>
-
-<script>
-async function carregarAtividades() {
-  const res = await fetch('atividades.json?t=' + new Date().getTime());
-  const data = await res.json();
-
-  const lista = document.getElementById('lista');
-
-  lista.innerHTML = data.map(a => {
-    const statusClass = a.status === 'Concluída' ? 'concluida' : 'atividade';
-    const botaoPDF = a.pdf ? `<button class="btn-pdf" onclick="openPDFModal(event, '${a.pdf}')">📄 Ver PDF</button>` : '';
-    
-    return `
-      <div class="card">
-        <a href="atividade.html?id=${a.id}" class="card-link">
-          <span class="numero ${statusClass}">${a.status}</span>
-          <h3>${a.titulo}</h3>
-          <p>${a.data_entrega}</p>
-        </a>
-        ${botaoPDF}
+    <nav id="primary-navigation" class="primary-nav" role="navigation" aria-label="Navegação principal">
+      <ul class="nav-list">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a class="btn" href="#projetos">Ver projetos</a>
       </div>
-    `;
-  }).join('');
-}
+    </nav>
+  </header>
 
-function openPDFModal(event, pdfUrl) {
-  event.stopPropagation();
-  const modal = document.getElementById('pdfModal');
-  const iframe = document.getElementById('pdfIframe');
-  iframe.src = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdfUrl)}`;
-  modal.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
+  <main id="main" class="site-main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-left">
+        <p class="kicker">Desenvolvedor Front-end</p>
+        <h1 id="hero-title" class="hero-title">Crio interfaces limpas e com foco em experiência</h1>
+        <p class="lead">Transformo ideias em experiências digitais rápidas, acessíveis e visuais. Trabalho com HTML, CSS, JavaScript e boas práticas de performance.</p>
 
-function closePDFModal() {
-  const modal = document.getElementById('pdfModal');
-  modal.classList.remove('show');
-  document.body.style.overflow = 'auto';
-}
+        <div class="hero-actions">
+          <a class="btn" href="#projetos">Ver projetos</a>
+          <a class="btn secondary" href="#contato">Fale comigo</a>
+        </div>
+      </div>
 
-// Fechar modal ao clicar fora dele
-document.addEventListener('click', function(event) {
-  const modal = document.getElementById('pdfModal');
-  if (event.target === modal) {
-    closePDFModal();
-  }
-});
+      <div class="hero-right" aria-hidden="true">
+        <img src="/assets/images/hero.webp" alt="Mockup mostrando interface" loading="lazy" width="720" style="max-width:100%;border-radius:12px">
+      </div>
+    </section>
 
-carregarAtividades();
-</script>
+    <section id="projetos" class="container section">
+      <h2 class="section-title">Projetos recentes</h2>
+      <p class="section-lead">Uma seleção de trabalhos com foco em interfaces e performance.</p>
 
+      <div class="grid projects-grid" role="list">
+        <article class="card" role="listitem">
+          <h3>Projeto A</h3>
+          <p>Site estático com foco em desempenho e SEO. HTML/CSS puro e imagens otimizadas.</p>
+          <p><a class="btn small" href="#">Ver</a></p>
+        </article>
+
+        <article class="card" role="listitem">
+          <h3>Projeto B</h3>
+          <p>SPA leve com micro-interações em JS e carregamento incremental de recursos.</p>
+          <p><a class="btn small" href="#">Ver</a></p>
+        </article>
+
+        <article class="card" role="listitem">
+          <h3>Projeto C</h3>
+          <p>Design responsivo, suporte a temas e acessibilidade melhorada para leitores de tela.</p>
+          <p><a class="btn small" href="#">Ver</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="habilidades" class="container section">
+      <h2 class="section-title">Habilidades</h2>
+      <ul class="skills-list">
+        <li>HTML semântico e acessível</li>
+        <li>CSS moderno (Flexbox, Grid, Custom Properties)</li>
+        <li>JavaScript para interatividade leve</li>
+        <li>Otimização de performance e imagens</li>
+      </ul>
+    </section>
+
+    <section id="contato" class="container section">
+      <h2 class="section-title">Contato</h2>
+      <p class="section-lead">Quer trabalhar junto? Me envie uma mensagem.</p>
+
+      <form class="contact-form" action="#" onsubmit="alert('Substitua o atributo action para enviar o formulário'); return false;">
+        <label for="name">Nome</label>
+        <input id="name" name="name" type="text" required>
+
+        <label for="email">E‑mail</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="message">Mensagem</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <div style="margin-top:0.6rem">
+          <button class="btn" type="submit">Enviar</button>
+          <button class="btn secondary" type="reset" style="margin-left:0.6rem">Limpar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer container" role="contentinfo">
+    <p>© <span id="year"></span> Gabriel Dagaluno — Feito com HTML, CSS e JavaScript.</p>
+  </footer>
+
+  <script src="/assets/js/main.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
