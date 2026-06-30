@@ -31,7 +31,7 @@
     "id": 5,
     "titulo": "Avaliar criticamente o site alegrete.org",
     "data_entrega": "16 de jun., 11:30",
-    "status": "Atividade",
+    "status": "Concluída",
     "pdf": "https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Avaliar%20criticamente%20o%20site%20alegrete.org.pdf"
   },
   {
@@ -102,7 +102,7 @@
     "titulo": "Resolver os exercícios de listas/vetores/arrays em Python",
     "data_entrega": "24 de abr., 13:30",
     "status": "Concluída",
-    "pdf": "https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Resolver%20os%20exerc%C3%ADcios%20de%20listas%20vetores%20arrays%20em%20Python%201.pdf"
+    "pdf": "https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Resolver%20os%20exerc%C3%ADcios%20de%20listas%20vetores%20arrays%20em%20Python.pdf"
   },
   {
     "id": 16,
@@ -136,21 +136,21 @@
     "id": 20,
     "titulo": "Lista de 15 exercícios: escolher e resolver",
     "data_entrega": "31 de mar., 10:30",
-    "status": "Atividade",
+    "status": "Concluída",
     "pdf": "https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Lista%20de15%20exerc%C3%ADcios%20escolher%20e%20resolver.pdf"
   },
   {
     "id": 21,
     "titulo": "QUIZ – Diagnóstico de Lógica de Programação",
     "data_entrega": "27 de mar., 13:30",
-    "status": "Atividade",
+    "status": "Concluída",
     "pdf": "https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/Question%C3%A1rio%20Diagn%C3%B3stico%20-%20Algoritmos%20e%20Programa%C3%A7%C3%A3o.pdf"
   },
   {
     "id": 22,
     "titulo": "QUIZ – Lógica de Programação (Preparatório em aula)",
     "data_entrega": "20 de mar., 13:30",
-    "status": "Atividade",
+    "status": "Concluída",
     "pdf": "https://raw.githubusercontent.com/gabrieldagaluno-sys/gabrieldagaluno-sys.github.io/refs/heads/main/projetos/QUIZ%20%E2%80%93%20L%C3%B3gica%20de%20Programa%C3%A7%C3%A3o.pdf"
   },
   {
